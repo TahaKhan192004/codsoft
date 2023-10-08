@@ -1,0 +1,53 @@
+#include<iostream>
+using namespace std;
+class Calculator
+{
+	int num1;
+	int num2;
+public:
+	void setNum1(int number1)
+	{
+		num1 = number1;
+	}
+	void setNum2(int number2)
+	{
+		num2 = number2;
+	}
+	int addNumbers()
+	{
+		return num1 + num2;
+	}
+	int subtractNumbers()
+	{
+		if (num1 > num2)
+		{
+			return num1 - num2;
+		}
+		else
+		{
+			return num2 - num1;
+		}
+	}
+	int multiplyNumbers()
+	{
+		return num1 * num2;
+	}
+	int divideNumbers()
+	{
+		if (num1 > num2)
+		{
+			return num1 / num2;
+		}
+		else
+		{
+			return num2 / num1;
+		}
+	}
+};
+int main()
+{
+	Calculator calc;
+	calc.setNum1(8);
+	calc.setNum2(9);
+	cout << calc.addNumbers();
+}
