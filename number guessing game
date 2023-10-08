@@ -1,0 +1,73 @@
+#include<iostream>
+#include<cstdlib>
+#include<ctime>
+using namespace std;
+class NumberGuessing
+{
+	int lowest;
+	int highest;
+	int  getRandomNum()
+	{
+		int x;
+		x = lowest + rand() % highest;
+		return x;
+	}
+public:
+	void setLowestRange(int l)
+	{
+		lowest = l;
+	}
+	void setHighestRange(int h)
+	{
+		highest = h;
+	}
+	int getLowest()
+	{
+		return lowest;
+	}
+	int getHighest()
+	{
+		return highest;
+	}
+	void isGuessed()
+	{
+		int num;
+		int x = getRandomNum();
+		do
+		{
+			cout << "enter number";
+			cin >> num;
+			if (num == x)
+			{
+				cout << "you guessed it !\n";
+			}
+			else if (num > x)
+			{
+				cout << "please enter a smaller number\n";
+			}
+			else
+			{
+				cout << "please enter a larger number\n";
+			}
+
+		} while (num != x);
+	}
+	void displayApp()
+	{
+	   int key = 0;
+	   while (key != 1)
+	   {
+		   isGuessed();
+		   cout << "press 0 to play again	\n";
+		   cout << "press 1 to exit	 \n";
+		   cin >> key;
+	   }
+	}
+};
+int main()
+{
+	NumberGuessing n1;
+	n1.setLowestRange(0);
+	n1.setHighestRange(100);
+	n1.displayApp();
+}
