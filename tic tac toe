@@ -1,0 +1,152 @@
+#include<iostream>
+using namespace std;
+bool isWin(char data[][9])
+{
+	if (data[0][0] == data[0][1] && data[0][1] == data[0][2])
+	{
+		if(data[0][0]=='X'||data[0][0]=='O')
+		{
+			return true;
+		}
+	}
+	else if (data[1][0] == data[1][1] && data[1][1] == data[1][2])
+	{
+		if (data[1][0] == 'X' || data[1][0] == 'O')
+		{
+			return true;
+		}
+	}
+	else if (data[2][0] == data[2][1] && data[2][1] == data[2][2])
+	{
+		if (data[2][0] == 'X' || data[2][0] == 'O')
+		{
+			return true;
+		}
+	}
+	else if (data[0][0] == data[1][0] && data[1][0] == data[2][0])
+	{
+		if (data[0][0] == 'X' || data[0][0] == 'O')
+		{
+			return true;
+		}
+	}
+	else if (data[0][1] == data[1][1] && data[1][1] == data[2][1])
+	{
+		if (data[0][1] == 'X' || data[0][1] == 'O')
+		{
+			return true;
+		}
+	}
+	else if (data[0][2] == data[1][2] && data[1][2] == data[2][2])
+	{
+		if (data[0][2] == 'X' || data[0][2] == 'O')
+		{
+			return true;
+		}
+	}
+	else if (data[0][0] == data[1][1] && data[1][1] == data[2][2])
+	{
+		if (data[0][0] == 'X' || data[0][0] == 'O')
+		{
+			return true;
+		}
+	}
+	else if (data[0][2] == data[1][1] && data[1][1] == data[2][0])
+	{
+		if (data[0][2] == 'X' || data[0][2] == 'O')
+		{
+			return true;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+void displayBoard(char board[][9])
+{
+	for (int i = 0; i < 3; i = i + 1)
+	{
+		for (int j = 0; j < 3; j = j + 1)
+		{
+			cout << "|   " << board[i][j] << "   |";
+		}
+		cout << "\n";
+	}
+}
+void markOnBoard(char board[][9], int boxNum, char choice)
+{
+	bool status = true;
+	for (int i = 0; i < 3&&status; i = i + 1)
+	{
+		for (int j = 0; j < 3&&status; j = j + 1)
+		{
+			if (i * 3 + j == boxNum)
+			{
+				board[i][j] = choice;
+				status = false;
+			}
+		}
+	}
+}
+void startGame(char board[][9])
+{
+	int noOfTurns = 1;
+	bool status = true;
+	int player=1;
+	while(noOfTurns<=9&&status)
+	{
+		int boxNum;
+		if (noOfTurns % 2 == 0)    
+		{
+			player = 2;
+		}
+		else
+		{
+			player = 1;   
+		}
+		displayBoard(board);
+		cout << "player  "<<player <<"enter box number you want to mark \n";
+		cin >> boxNum;
+		noOfTurns = noOfTurns + 1;
+		if (player == 1)
+		{
+			markOnBoard(board, boxNum-1, 'X');
+		}
+		else if (player == 2)
+		{
+			markOnBoard(board, boxNum-1, 'O');
+		}
+		if (isWin(board))
+		{
+			status = false;
+			cout << "player " << player << " won\n";
+			displayBoard(board);
+		}
+	}
+	if (status)
+	{
+		cout << "match drawn !!!";
+	}
+}
+void ticTacToeApp(char board[][9])
+{
+	int choice=0;
+	while (choice == 0)
+	{
+		cout << "press 1 to start game \n";
+		cin >> choice;
+		if (choice == 1)
+		{
+			startGame(board);
+		}
+		cout << "press 0 if you want to play again  : \n";
+		cout << "press 2 if you want to exit :\n";
+		cin >> choice;
+	}
+}
+int main()
+{
+	char board[9][9] = {};
+	ticTacToeApp(board);
+}
