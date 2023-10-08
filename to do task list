@@ -1,0 +1,120 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class TaskListManager {
+private:
+    const int maxTasks = 100; 
+    const int taskLength = 100; 
+    char listOfTasks[100][100];
+    bool statuses[100];
+    int totalTasks;
+public:
+    TaskListManager() 
+    {
+        totalTasks = 0;
+        initializeStatuses();
+    }
+
+    void initializeStatuses() 
+    {
+        for (int i = 0; i < maxTasks; i=i+1) 
+        {
+            statuses[i] = false;
+        }
+    }
+
+    void inputTask(char* task)
+    {
+        cout << "Enter the task you want to add to the list: ";
+        cin.getline(task, taskLength);
+    }
+
+    void addTask() {
+        if (totalTasks < maxTasks) 
+        {
+            inputTask(listOfTasks[totalTasks]);
+            totalTasks=totalTasks+1;
+        }
+        else 
+        {
+            cout << "Task list is full. Cannot add more tasks." << endl;
+        }
+    }
+
+    int getIndex(const char* task) 
+    {
+        for (int i = 0; i < totalTasks; i=i+1) 
+        {
+            if (strcmp(listOfTasks[i], task) == 0) 
+            {
+                return i;
+            }
+        }
+        return -1; 
+    }
+
+    void markAsComplete() 
+    {
+        char task[100];
+        cout << "Enter task to mark as completed: ";
+        cin.getline(task, taskLength);
+        int index = getIndex(task);
+        if (index != -1) 
+        {
+            statuses[index] = true;
+        }
+        else 
+        {
+            cout << "Task not found." << endl;
+        }
+    }
+
+    void displayTaskList() 
+    {
+        cout << "Task List:" << endl;
+        for (int i = 0; i < totalTasks; i++) {
+            cout << i + 1 << ". " << listOfTasks[i] << "\t\t\t";
+            if (statuses[i] == 1)
+            {
+                cout << "completed";
+            }
+            else
+            {
+                cout << "pending";
+            }
+        }
+    }
+
+    void removeTask()
+    {
+        char task[100];
+        cout << "Enter task you want to remove: ";
+        cin.getline(task, taskLength);
+        int index = getIndex(task);
+        if (index != -1) 
+        {
+            for (int i = index; i < totalTasks - 1; i=i+1) {
+                strcpy_s(listOfTasks[i], listOfTasks[i + 1]);
+                statuses[i] = statuses[i + 1];
+            }
+            totalTasks=totalTasks-1;
+        }
+        else {
+            cout << "Task not found." << endl;
+        }
+    }
+};
+
+int main() {
+    TaskListManager manager;
+    manager.addTask();
+    manager.addTask();
+    manager.addTask();
+    manager.addTask();
+    manager.markAsComplete();
+    manager.displayTaskList();
+    manager.removeTask();
+    manager.displayTaskList();
+    return 0;
+}
